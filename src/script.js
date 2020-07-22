@@ -72,3 +72,23 @@ function doubleValue(value) {
 }
 
 callWithFunctionResult(doubleValue, getFour);
+
+/* Task 5 */
+
+function consoleLog(value) {
+  console.log(value);
+}
+
+function callWhileStringIsNotEmpty(string, func) {
+  if (typeof (string) !== 'string') {
+    console.log('string is undefined');
+  }
+
+  if (string.length < 1) {
+    return string;
+  }
+  return callWhileStringIsNotEmpty(string.substring(0, string.length - 1), func(string));
+}
+
+// have some troubles with this code (dont understand how to return func with value = string)
+callWhileStringIsNotEmpty('qwerty', consoleLog);
