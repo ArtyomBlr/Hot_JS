@@ -89,7 +89,7 @@ function callWhileStringIsNotEmpty(string, func) {
   if (strLength < 1) {
     return string;
   }
-  return callWhileStringIsNotEmpty(string.substring(0, strLength - 1), func(string));
+  return callWhileStringIsNotEmpty(string.substring(0, strLength - 1), func);
 }
 
 // have some troubles with this code (dont understand how to return func with value = string)
