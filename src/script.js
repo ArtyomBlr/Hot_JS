@@ -14,8 +14,8 @@ summ(1, '2', '3', 5, 'abc');
 
 /* Task 2 */
 
-function summAdvanced(...val) {
-  const args = [...val];
+function summAdvanced(...rest) {
+  const args = [...rest];
   args.reduce((summary, currentValue) => {
     if (typeof currentValue === 'function') {
       summary += +currentValue();
@@ -80,14 +80,16 @@ function consoleLog(value) {
 }
 
 function callWhileStringIsNotEmpty(string, func) {
-  if (typeof (string) !== 'string') {
+  const strLength = string.length;
+
+  if (typeof string !== 'string') {
     console.log('string is undefined');
   }
 
-  if (string.length < 1) {
+  if (strLength < 1) {
     return string;
   }
-  return callWhileStringIsNotEmpty(string.substring(0, string.length - 1), func(string));
+  return callWhileStringIsNotEmpty(string.substring(0, strLength - 1), func(string));
 }
 
 // have some troubles with this code (dont understand how to return func with value = string)

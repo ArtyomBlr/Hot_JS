@@ -6,7 +6,7 @@
   "scripts": {
     "eslint": "eslint **/*.js",
     "correct": "pretty-quick",
-    "lint": "npm run eslint"
+    "lint": "npm run correct && npm run eslint"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test"
+      "pre-commit": "npm lint"
     }
   }
 }
