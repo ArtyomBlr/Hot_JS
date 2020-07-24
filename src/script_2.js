@@ -14,18 +14,16 @@ chunk(['a', 'b', 'c', 'd'], 3); // => [['a', 'b', 'c'], ['d']]
 
 /* Task 2 */
 
-// function difference(array1, array2) {
-//   const newArr = array1.concat(array2).sort();
-//   console.log(newArr);
-//   newArr.forEach((element, i, array) => {
-//     if (element !== array[i + 1]) {
-//       console.log(array[i]);
-//     }
-//   });
-//   return newArr;
-// }
+function difference(array1, array2) {
+  let newArr = [];
+  newArr = array1
+    .filter((element) => array2.indexOf(element) === -1)
+    .concat(array2.filter((element) => array1.indexOf(element) === -1));
+  console.log(newArr);
+  return newArr;
+}
 
-// difference([2, 1], [2, 3, 4]); // => [1, 3, 4]
+difference([2, 1], [2, 3, 4]); // => [1, 3, 4]
 
 // /* Task 3 */
 
