@@ -3,7 +3,7 @@
 function summ(...rest) {
   const args = [...rest];
   args.reduce((result, item) => {
-    if (typeof (item) === 'boolean' || Number.isNaN(+item)) {
+    if (typeof item === 'boolean' || Number.isNaN(+item)) {
       return false;
     }
     result += +item;
@@ -19,7 +19,7 @@ function summAdvanced(...rest) {
   const args = [...rest];
   const result = args.reduce((summary, item) => {
     const value = +item;
-    if (typeof (item) !== 'boolean') {
+    if (typeof item !== 'boolean') {
       if (typeof item === 'function') {
         summary += +item();
       } else if (value) {
