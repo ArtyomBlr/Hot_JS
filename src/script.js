@@ -2,28 +2,33 @@
 
 function summ(...rest) {
   const args = [...rest];
-  args.reduce((result, currentValue) => {
-    if (+currentValue) {
-      result += +currentValue;
+  args.reduce((result, item) => {
+    if (typeof (item) === 'boolean' || Number.isNaN(+item)) {
+      return false;
     }
+    result += +item;
     return result;
   });
 }
 
-summ(1, '2', '3', 5, 'abc');
+summ(1, '2', '3', 5, 'abc', true);
 
 /* Task 2 */
 
 function summAdvanced(...rest) {
   const args = [...rest];
-  args.reduce((summary, currentValue) => {
-    if (typeof currentValue === 'function') {
-      summary += +currentValue();
-    } else if (+currentValue) {
-      summary += +currentValue;
+  const result = args.reduce((summary, item) => {
+    const value = +item;
+    if (typeof (item) !== 'boolean') {
+      if (typeof item === 'function') {
+        summary += +item();
+      } else if (value) {
+        summary += value;
+      }
     }
     return summary;
-  });
+  }, 0);
+  return result;
 }
 
 function getRandomNumber() {
@@ -38,12 +43,12 @@ function getTenString() {
   return '10';
 }
 
-summAdvanced('abc', 1, '2', getTen, getTenString, getRandomNumber);
+summAdvanced('abc', 1, '2', getTen, getTenString, getRandomNumber, true, true);
 
 /* Task 3 */
 
 function isValueExists(value) {
-  return !(value === undefined || value === null);
+  return value !== undefined && value !== null;
 }
 
 isValueExists(1); // => true
@@ -57,7 +62,11 @@ isValueExists(null); // => false
 /* Task 4 */
 
 function callWithFunctionResult(funct1, funct2) {
-  return Number(funct2()) ? funct1(funct2()) : console.log('not a function');
+  if (typeof funct2 !== 'function') {
+    console.log('not a function');
+  }
+
+  return Number(funct2()) ? funct1(funct2()) : console.log('function value is not a number');
 }
 
 function getFour() {
@@ -78,17 +87,16 @@ function consoleLog(value) {
 
 function callWhileStringIsNotEmpty(string, func) {
   const strLength = string.length;
+  const newString = string.substring(0, strLength - 1);
 
   if (typeof string !== 'string') {
-    console.log('string is undefined');
+    console.log('not a string');
   }
 
-  if (strLength < 1) {
-    return string;
+  if (strLength > 0) {
+    func(string);
+    callWhileStringIsNotEmpty(newString, func);
   }
-  func(string);
-  const newString = string.substring(0, strLength - 1);
-  return callWhileStringIsNotEmpty(newString, func);
 }
 
 callWhileStringIsNotEmpty('qwerty', consoleLog);
