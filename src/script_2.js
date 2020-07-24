@@ -51,7 +51,7 @@ flattenDeep([1, [2, [3, [4]], 5]]);
 
 // /* Task 5 */
 // function fromPairs() {
-// 	// TODO: implement function
+// // TODO: implement function
 // }
 
 // // Expected result
@@ -68,7 +68,7 @@ uniq([2, 1, 2, 5, 6, 5, 7]); // => [2, 1, 5, 6, 7]
 /* Task 7 */
 
 function every(array, age) {
-  let newArr = array.every(element => element === age);
+  const newArr = array.every((element) => element === age);
   console.log(newArr);
 }
 
