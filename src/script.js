@@ -43,10 +43,7 @@ summAdvanced('abc', 1, '2', getTen, getTenString, getRandomNumber);
 /* Task 3 */
 
 function isValueExists(value) {
-  if (value === undefined || value === null) {
-    return false;
-  }
-  return true;
+  return !(value === undefined || value === null);
 }
 
 isValueExists(1); // => true
@@ -60,7 +57,7 @@ isValueExists(null); // => false
 /* Task 4 */
 
 function callWithFunctionResult(funct1, funct2) {
-  return funct1(funct2());
+  return Number(funct2()) ? funct1(funct2()) : console.log('not a function');
 }
 
 function getFour() {
@@ -89,8 +86,9 @@ function callWhileStringIsNotEmpty(string, func) {
   if (strLength < 1) {
     return string;
   }
-  return callWhileStringIsNotEmpty(string.substring(0, strLength - 1), func);
+  func(string);
+  const newString = string.substring(0, strLength - 1);
+  return callWhileStringIsNotEmpty(newString, func);
 }
 
-// have some troubles with this code (dont understand how to return func with value = string)
 callWhileStringIsNotEmpty('qwerty', consoleLog);
