@@ -3,9 +3,14 @@
 function chunk(array, number) {
   const arrLen = array.length;
   const newArr = [];
-  for (let i = 0; i < arrLen; i += number) {
-    newArr.push(array.slice(i, i + number));
+
+  if (Array.isArray(array) && array.length) {
+    for (let i = 0; i < arrLen; i += number) {
+      newArr.push(array.slice(i, i + number));
+    }
   }
+
+  console.log(newArr);
   return newArr;
 }
 
@@ -16,20 +21,24 @@ chunk(['a', 'b', 'c', 'd'], 3); // => [['a', 'b', 'c'], ['d']]
 
 function difference(array1, array2) {
   let newArr = [];
-  newArr = array1
-    .filter((element) => array2.indexOf(element) === -1)
-    .concat(array2.filter((element) => array1.indexOf(element) === -1));
+
+  if (Array.isArray(array1) && Array.isArray(array1) && array1.length && array2.length) {
+    newArr = array1
+      .filter((element) => array2.indexOf(element) === -1)
+      .concat(array2.filter((element) => array1.indexOf(element) === -1));
+  }
+
   console.log(newArr);
   return newArr;
 }
 
 difference([2, 1], [2, 3, 4]); // => [1, 3, 4]
 
-// /* Task 3 */
+/* Task 3 */
 
 // function findIndex(obj, element) {
-//   console.log(obj.indexOf(element));
-//   return obj.indexOf(element);
+//   console.log(obj.findIndex((item) => item === element));
+//   return obj.findIndex((item) => item === element);
 // }
 
 // const numbers = [3, 5, 1, 6, 7];
@@ -42,7 +51,14 @@ difference([2, 1], [2, 3, 4]); // => [1, 3, 4]
 /* Task 4 */
 
 function flattenDeep(array) {
-  return array.flat(Infinity);
+  let newArr = [];
+
+  if (Array.isArray(array) && array.length) {
+    newArr = array.flat(Infinity);
+  }
+
+  console.log(newArr);
+  return newArr;
 }
 
 flattenDeep([1, [2, [3, [4]], 5]]);
@@ -58,38 +74,14 @@ flattenDeep([1, [2, [3, [4]], 5]]);
 /* Task 6 */
 
 function uniq(array) {
-  array.filter((element, index) => array.indexOf(element) === index);
+  let newArr = [];
+
+  if (Array.isArray(array) && array.length) {
+    newArr = array.filter((element, index) => array.indexOf(element) === index);
+  }
+
+  return newArr;
 }
 
 uniq([2, 1, 2, 5, 6, 5, 7]); // => [2, 1, 5, 6, 7]
 
-/* Task 7 */
-
-function every(array, age) {
-  const newArr = array.every((element) => element === age);
-  console.log(newArr);
-}
-
-const users = [
-  { name: 'User1', age: 22 },
-  { name: 'User2', age: 22 },
-  { name: 'User3', age: 23 },
-];
-
-every(users, (user) => user.age === 22); // => false
-
-const users1 = [
-  { name: 'User1', age: 22 },
-  { name: 'User2', age: 22 },
-  { name: 'User3', age: 22 },
-];
-
-every(users1, (user) => user.age === 22); // => true
-
-const users2 = [
-  { name: 'User1', age: 22 },
-  { name: 'User2', age: 23 },
-  { name: 'User3', age: 20 },
-];
-
-every(users2, (user) => user.age < 24); // => true
