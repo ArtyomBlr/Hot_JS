@@ -36,17 +36,25 @@ difference([2, 1], [2, 3, 4]); // => [1, 3, 4]
 
 /* Task 3 */
 
+//  how can i fixed this code?
+
 // function findIndex(obj, element) {
-//   console.log(obj.findIndex((item) => item === element));
-//   return obj.findIndex((item) => item === element);
+//   return obj.findIndex(((item) => item === element), obj);
 // }
 
-// const numbers = [3, 5, 1, 6, 7];
-// findIndex(numbers, 1); // => 2
+function findIndex(obj, element) {
+  if (!Array.isArray(obj) && !obj.length) {
+    console.log('not an array');
+  }
+  return typeof obj[0] === 'number' ? obj.indexOf(element) : obj.findIndex(element);
+}
 
-// const users = [{ name: 'User1' }, { name: 'User2' }, { name: 'User3' }];
+const numbers = [3, 5, 1, 6, 7];
+findIndex(numbers, 1); // => 2
 
-// findIndex(users, (user) => user.name === 'User2'); // => 1
+const users = [{ name: 'User1' }, { name: 'User2' }, { name: 'User3' }];
+
+findIndex(users, (user) => user.name === 'User2'); // => 1
 
 /* Task 4 */
 
@@ -63,13 +71,22 @@ function flattenDeep(array) {
 
 flattenDeep([1, [2, [3, [4]], 5]]);
 
-// /* Task 5 */
-// function fromPairs() {
-// // TODO: implement function
-// }
+/* Task 5 */
 
-// // Expected result
-// fromPairs([['a', 1], ['b', 2]]); // => { 'a': 1, 'b': 2 }
+function fromPairs(array) {
+  let newArr = [];
+
+  if (Array.isArray(array) && array.length) {
+    newArr = Object.fromEntries(array);
+    console.log(newArr);
+  }
+  return newArr;
+}
+
+fromPairs([
+  ['a', 1],
+  ['b', 2],
+]); // => { 'a': 1, 'b': 2 }
 
 /* Task 6 */
 
@@ -85,3 +102,140 @@ function uniq(array) {
 
 uniq([2, 1, 2, 5, 6, 5, 7]); // => [2, 1, 5, 6, 7]
 
+/* Task 7 */
+
+function every(object, item) {
+  let newArr = [];
+
+  newArr = object.every(item);
+  console.log(newArr);
+  return newArr;
+}
+
+const users1 = [
+  { name: 'User1', age: 22 },
+  { name: 'User2', age: 22 },
+  { name: 'User3', age: 23 },
+];
+
+every(users1, (user) => user.age === 22); // => false
+
+const users2 = [
+  { name: 'User1', age: 22 },
+  { name: 'User2', age: 22 },
+  { name: 'User3', age: 22 },
+];
+
+every(users2, (user) => user.age === 22); // => true
+
+const users3 = [
+  { name: 'User1', age: 22 },
+  { name: 'User2', age: 23 },
+  { name: 'User3', age: 20 },
+];
+
+every(users3, (user) => user.age < 24); // => true
+
+/* Task 8 */
+
+function find(object, item) {
+  let newArr = [];
+
+  newArr = object.filter(item);
+  console.log(newArr);
+  return newArr;
+}
+
+const users4 = [
+  { name: 'User1', age: 22 },
+  { name: 'User2', age: 23 },
+  { name: 'User3', age: 20 },
+];
+
+find(users4, (user) => user.age < 23);
+// => [{ name: 'User1', age: 22 }, { name: 'User3', age: 20 }]
+
+/* Task 9 */
+
+function groupBy(object, key) {
+  return object.reduce((acc, currentValue) => {
+    const value = key(currentValue);
+    acc[value] = acc[value] || [];
+    acc[value].push(currentValue);
+    return acc;
+  }, {});
+}
+
+groupBy(['one', 'two', 'three'], (element) => element.length); // => { '3': ['one', 'two'], '5': ['three'] }
+
+/* Task 10 */
+
+function isEqual(obj1, obj2) {
+  if (!Array.isArray(obj1) && !Array.isArray(obj1)) {
+    return false;
+  }
+  return JSON.stringify(obj1) === JSON.stringify(obj2);
+}
+
+const object1 = {
+  a: 1,
+  b: {
+    c: 3,
+    d: {
+      e: 5,
+    },
+  },
+};
+const object2 = {
+  a: 1,
+  b: {
+    c: 3,
+    d: {
+      e: 5,
+    },
+  },
+};
+
+isEqual(object1, object2); // => true
+
+const object11 = {
+  a: 1,
+  b: {
+    c: 2,
+    d: {
+      e: 5,
+    },
+  },
+};
+const object22 = {
+  a: 1,
+  b: {
+    c: 3,
+    d: {
+      e: 5,
+    },
+  },
+};
+
+isEqual(object11, object22); // => false
+
+const object111 = {
+  a: 1,
+  b: {
+    c: 3,
+    d: {
+      e: 5,
+    },
+  },
+};
+const object222 = {
+  a: 1,
+  b: {
+    c: 3,
+    d: {
+      e: 6,
+    },
+  },
+};
+
+isEqual(object111, object222); // => false
