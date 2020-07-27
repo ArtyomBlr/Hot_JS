@@ -1,10 +1,10 @@
 /* Task 1 */
 
 function chunk(array, number) {
-  const arrLen = array.length;
   const newArr = [];
 
-  if (Array.isArray(array) && array.length) {
+  if (Array.isArray(array)) {
+    const arrLen = array.length;
     for (let i = 0; i < arrLen; i += number) {
       newArr.push(array.slice(i, i + number));
     }
@@ -22,7 +22,7 @@ chunk(['a', 'b', 'c', 'd'], 3); // => [['a', 'b', 'c'], ['d']]
 function difference(array1, array2) {
   let newArr = [];
 
-  if (Array.isArray(array1) && Array.isArray(array1) && array1.length && array2.length) {
+  if (Array.isArray(array1) && Array.isArray(array2)) {
     newArr = array1
       .filter((element) => array2.indexOf(element) === -1)
       .concat(array2.filter((element) => array1.indexOf(element) === -1));
@@ -43,10 +43,15 @@ difference([2, 1], [2, 3, 4]); // => [1, 3, 4]
 // }
 
 function findIndex(obj, element) {
-  if (!Array.isArray(obj) && !obj.length) {
+  if (!Array.isArray(obj)) {
     console.log('not an array');
   }
-  return typeof obj[0] === 'number' ? obj.indexOf(element) : obj.findIndex(element);
+
+  if (obj.length === 0) {
+    console.log('there is no params');
+  }
+  console.log(typeof obj[element] === 'number' ? obj.indexOf(element) : obj.findIndex(element))
+  return typeof obj[element] === 'number' ? obj.indexOf(element) : obj.findIndex(element);
 }
 
 const numbers = [3, 5, 1, 6, 7];
@@ -61,7 +66,7 @@ findIndex(users, (user) => user.name === 'User2'); // => 1
 function flattenDeep(array) {
   let newArr = [];
 
-  if (Array.isArray(array) && array.length) {
+  if (Array.isArray(array)) {
     newArr = array.flat(Infinity);
   }
 
@@ -76,7 +81,7 @@ flattenDeep([1, [2, [3, [4]], 5]]);
 function fromPairs(array) {
   let newArr = [];
 
-  if (Array.isArray(array) && array.length) {
+  if (Array.isArray(array)) {
     newArr = Object.fromEntries(array);
     console.log(newArr);
   }
@@ -93,7 +98,7 @@ fromPairs([
 function uniq(array) {
   let newArr = [];
 
-  if (Array.isArray(array) && array.length) {
+  if (Array.isArray(array)) {
     newArr = array.filter((element, index) => array.indexOf(element) === index);
   }
 
@@ -107,7 +112,10 @@ uniq([2, 1, 2, 5, 6, 5, 7]); // => [2, 1, 5, 6, 7]
 function every(object, item) {
   let newArr = [];
 
-  newArr = object.every(item);
+  if (Array.isArray(object)) {
+    newArr = object.every(item);
+  }
+
   console.log(newArr);
   return newArr;
 }
@@ -141,7 +149,10 @@ every(users3, (user) => user.age < 24); // => true
 function find(object, item) {
   let newArr = [];
 
-  newArr = object.filter(item);
+  if (Array.isArray(object)) {
+    newArr = object.filter(item);
+  }
+
   console.log(newArr);
   return newArr;
 }
@@ -158,6 +169,10 @@ find(users4, (user) => user.age < 23);
 /* Task 9 */
 
 function groupBy(object, key) {
+  if (!Array.isArray(object)) {
+    console.log('not an object');
+  }
+
   return object.reduce((acc, currentValue) => {
     const value = key(currentValue);
     acc[value] = acc[value] || [];
