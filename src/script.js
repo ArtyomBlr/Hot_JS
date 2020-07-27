@@ -65,7 +65,6 @@ function callWithFunctionResult(funct1, funct2) {
   if (typeof funct2 !== 'function') {
     console.log('not a function');
   }
-
   return Number(funct2()) ? funct1(funct2()) : console.log('function value is not a number');
 }
 
@@ -86,17 +85,17 @@ function consoleLog(value) {
 }
 
 function callWhileStringIsNotEmpty(string, func) {
-  const strLength = string.length;
-  const newString = string.substring(0, strLength - 1);
-
   if (typeof string !== 'string') {
     console.log('not a string');
   }
 
+  const strLength = string.length;
+
   if (strLength > 0) {
+    const newString = string.substring(0, strLength - 1);
     func(string);
     callWhileStringIsNotEmpty(newString, func);
   }
 }
 
-callWhileStringIsNotEmpty('qwerty', consoleLog);
+callWhileStringIsNotEmpty(1, consoleLog);
