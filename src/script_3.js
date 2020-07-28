@@ -89,5 +89,5 @@
 // memoizedSumm(1, 2, 3); //
 //  => function summ was NOT called, result 6 was remembered for arguments 1, 2, 3 and returned
 // // memoizedSumm(4, 2, 3); // => function summ was called, result 9
-// // memoizedSumm(4, 2, 3); // 
+// // memoizedSumm(4, 2, 3); //
 // => function summ was NOT called, result 9 was remembered for arguments 4, 2, 3 and returned
