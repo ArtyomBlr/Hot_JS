@@ -1,18 +1,28 @@
 /* Task 1 */
-// function rememberResult(initialValue) {}
 
-// function doubleValue(value) {
-//   return 2 * value;
+function doubleValue(value) {
+  return 2 * value;
+}
+
+function rememberResult(initialValue) {
+  return () => {
+    initialValue = doubleValue(initialValue);
+    console.log(initialValue);
+  };
+}
+
+const callWithRememberedResult = rememberResult(2);
+callWithRememberedResult(doubleValue); // => 4
+callWithRememberedResult(doubleValue); // => 8
+callWithRememberedResult(doubleValue); // => 16
+
+/* Task 2 */
+
+// function callMaxTimes(numberOfTimes, func) {
+//   for (let i = 0; i < numberOfTimes; i += 1) {
+//     func();
+//   }
 // }
-
-// const callWithRememberedResult = rememberResult(2);
-// callWithRememberedResult(doubleValue); // => 4
-// callWithRememberedResult(doubleValue); // => 8
-// callWithRememberedResult(doubleValue); // => 16
-
-// /* Task 2 */
-
-// function callMaxTimes(numberOfTimes, func) {}
 
 // function consoleLog() {
 //   console.log('abc');
@@ -26,16 +36,18 @@
 
 // /* Task 3 */
 
-// function partial() {}
-
 // function greet(greeting, name) {
-//   return `${greeting} ${name}`;
+//   return console.log(`${greeting} ${name}`);
+// }
+
+// function partial() {
+//   return greet();
 // }
 
 // const sayHelloTo = partial(greet, 'Hello');
 // sayHelloTo('everyone'); // => 'Hello everyone'
 
-// /* Task 4 */
+/* Task 4 */
 
 // function curry(fn) {
 //   // HINT: fn.length should be used to get number of fn arguments
@@ -51,6 +63,7 @@
 // function summ2(a, b, c, d, e) {
 //   return a + b + c + d + e;
 // }
+
 // const curriedSumm2 = curry(summ2);
 // curriedSumm2(1)(2)(3)(4)(5); // => 15
 
