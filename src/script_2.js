@@ -1,17 +1,20 @@
 /* Task 1 */
 
 function chunk(array, number) {
-  const newArr = [];
-
   if (Array.isArray(array)) {
-    const arrLen = array.length;
-    for (let i = 0; i < arrLen; i += number) {
-      newArr.push(array.slice(i, i + number));
-    }
-  }
+    const result = array.reduce((acc, item, i) => {
+      const chunkStep = Math.floor(i / number);
 
-  console.log(newArr);
-  return newArr;
+      if (!acc[chunkStep]) {
+        acc[chunkStep] = [];
+      }
+
+      acc[chunkStep].push(item);
+
+      return acc;
+    }, []);
+    console.log(result);
+  }
 }
 
 chunk(['a', 'b', 'c', 'd'], 2); // => [['a', 'b'], ['c', 'd']]
@@ -36,20 +39,23 @@ difference([2, 1], [2, 3, 4]); // => [1, 3, 4]
 
 /* Task 3 */
 
-//  how can i fixed this code?
-
 // function findIndex(obj, element) {
 //   return obj.findIndex(((item) => item === element), obj);
 // }
 
+// how can i fixed this code, this code should work with
+// arrays and objects too, but it works only with array at this code,
+// why does it work with the code done below?
+
 function findIndex(obj, element) {
   if (!Array.isArray(obj)) {
-    console.log('not an array');
+    return console.log('not an array');
   }
 
   if (obj.length === 0) {
-    console.log('there is no params');
+    return console.log('there is no params');
   }
+
   console.log(typeof obj[element] === 'number' ? obj.indexOf(element) : obj.findIndex(element));
   return typeof obj[element] === 'number' ? obj.indexOf(element) : obj.findIndex(element);
 }
@@ -64,14 +70,7 @@ findIndex(users, (user) => user.name === 'User2'); // => 1
 /* Task 4 */
 
 function flattenDeep(array) {
-  let newArr = [];
-
-  if (Array.isArray(array)) {
-    newArr = array.flat(Infinity);
-  }
-
-  console.log(newArr);
-  return newArr;
+  return Array.isArray(array) ? console.log(array.flat(Infinity)) : console.log('not an array');
 }
 
 flattenDeep([1, [2, [3, [4]], 5]]);
@@ -79,13 +78,7 @@ flattenDeep([1, [2, [3, [4]], 5]]);
 /* Task 5 */
 
 function fromPairs(array) {
-  let newArr = [];
-
-  if (Array.isArray(array)) {
-    newArr = Object.fromEntries(array);
-    console.log(newArr);
-  }
-  return newArr;
+  return Array.isArray(array) ? console.log(Object.fromEntries(array)) : console.log('not correct array');
 }
 
 fromPairs([
@@ -96,13 +89,9 @@ fromPairs([
 /* Task 6 */
 
 function uniq(array) {
-  let newArr = [];
-
-  if (Array.isArray(array)) {
-    newArr = array.filter((element, index) => array.indexOf(element) === index);
-  }
-
-  return newArr;
+  return Array.isArray(array)
+    ? console.log(array.filter((element, index) => array.indexOf(element) === index))
+    : console.log('not an array');
 }
 
 uniq([2, 1, 2, 5, 6, 5, 7]); // => [2, 1, 5, 6, 7]
@@ -110,14 +99,7 @@ uniq([2, 1, 2, 5, 6, 5, 7]); // => [2, 1, 5, 6, 7]
 /* Task 7 */
 
 function every(object, item) {
-  let newArr = [];
-
-  if (Array.isArray(object)) {
-    newArr = object.every(item);
-  }
-
-  console.log(newArr);
-  return newArr;
+  return Array.isArray(object) ? console.log(object.every(item)) : console.log('not an object');
 }
 
 const users1 = [
@@ -147,14 +129,7 @@ every(users3, (user) => user.age < 24); // => true
 /* Task 8 */
 
 function find(object, item) {
-  let newArr = [];
-
-  if (Array.isArray(object)) {
-    newArr = object.filter(item);
-  }
-
-  console.log(newArr);
-  return newArr;
+  return Array.isArray(object) ? console.log(object.filter(item)) : console.log('not an object');
 }
 
 const users4 = [
@@ -170,7 +145,7 @@ find(users4, (user) => user.age < 23);
 
 function groupBy(object, key) {
   if (!Array.isArray(object)) {
-    console.log('not an object');
+    return console.log('not an object');
   }
 
   return object.reduce((acc, currentValue) => {
@@ -186,10 +161,9 @@ groupBy(['one', 'two', 'three'], (element) => element.length); // => { '3': ['on
 /* Task 10 */
 
 function isEqual(obj1, obj2) {
-  if (!Array.isArray(obj1) && !Array.isArray(obj1)) {
-    return false;
-  }
-  return JSON.stringify(obj1) === JSON.stringify(obj2);
+  return typeof obj1 !== 'object' && typeof obj2 !== 'object'
+    ? console.log(false)
+    : console.log(JSON.stringify(obj1) === JSON.stringify(obj2));
 }
 
 const object1 = {
