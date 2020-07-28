@@ -56,7 +56,6 @@ function findIndex(obj, element) {
     return console.log('there is no params');
   }
 
-  console.log(typeof obj[element] === 'number' ? obj.indexOf(element) : obj.findIndex(element));
   return typeof obj[element] === 'number' ? obj.indexOf(element) : obj.findIndex(element);
 }
 
