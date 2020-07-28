@@ -1,25 +1,24 @@
 /* Task 1 */
 
-function summ(...rest) {
-  const args = [...rest];
-  args.reduce((result, item) => {
-    if (typeof item === 'boolean' || Number.isNaN(+item)) {
-      return false;
+function summ(...args) {
+  const result = args.reduce((summary, item) => {
+    if (Number(item) && typeof item !== 'boolean') {
+      summary += +item;
     }
-    result += +item;
-    return result;
+    return summary;
   });
+
+  return console.log(result);
 }
 
 summ(1, '2', '3', 5, 'abc', true);
 
 /* Task 2 */
 
-function summAdvanced(...rest) {
-  const args = [...rest];
+function summAdvanced(...args) {
   const result = args.reduce((summary, item) => {
-    const value = +item;
     if (typeof item !== 'boolean') {
+      const value = +item;
       if (typeof item === 'function') {
         summary += +item();
       } else if (value) {
@@ -28,7 +27,7 @@ function summAdvanced(...rest) {
     }
     return summary;
   }, 0);
-  return result;
+  return console.log(result);
 }
 
 function getRandomNumber() {
@@ -62,10 +61,10 @@ isValueExists(null); // => false
 /* Task 4 */
 
 function callWithFunctionResult(funct1, funct2) {
-  if (typeof funct2 !== 'function') {
-    console.log('not a function');
+  if (typeof funct2 !== 'function' || typeof funct1 !== 'function') {
+    return console.log('please use functions here!');
   }
-  return Number(funct2()) ? funct1(funct2()) : console.log('function value is not a number');
+  return console.log(Number(funct2()) ? funct1(funct2()) : console.log('function value is not a number'));
 }
 
 function getFour() {
@@ -86,16 +85,14 @@ function consoleLog(value) {
 
 function callWhileStringIsNotEmpty(string, func) {
   if (typeof string !== 'string') {
-    console.log('not a string');
+    return console.log('not a string');
   }
 
   const strLength = string.length;
+  const newString = string.substring(0, strLength - 1);
+  func(string);
 
-  if (strLength > 0) {
-    const newString = string.substring(0, strLength - 1);
-    func(string);
-    callWhileStringIsNotEmpty(newString, func);
-  }
+  return strLength < 1 ? string : callWhileStringIsNotEmpty(newString, func);
 }
 
-callWhileStringIsNotEmpty(1, consoleLog);
+callWhileStringIsNotEmpty('qwerty', consoleLog);
