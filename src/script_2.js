@@ -31,7 +31,6 @@ function difference(array1, array2) {
       .concat(array2.filter((element) => array1.indexOf(element) === -1));
   }
 
-  console.log(newArr);
   return newArr;
 }
 
@@ -39,30 +38,28 @@ difference([2, 1], [2, 3, 4]); // => [1, 3, 4]
 
 /* Task 3 */
 
-// function findIndex(obj, element) {
-//   return obj.findIndex(((item) => item === element), obj);
-// }
-
-// how can i fixed this code, this code should work with
-// arrays and objects too, but it works only with array at this code,
-// why does it work with the code done below?
-
 function findIndex(obj, element) {
   if (!Array.isArray(obj)) {
-    return console.log('not an array');
+    console.warn('not an array');
+    return null;
   }
 
   if (obj.length === 0) {
-    return console.log('there is no params');
+    console.warn('array is empty');
+    return null;
   }
 
-  return typeof obj[element] === 'number' ? obj.indexOf(element) : obj.findIndex(element);
+  return typeof element === 'function' ? obj.findIndex(element) : obj.indexOf(element);
 }
 
 const numbers = [3, 5, 1, 6, 7];
 findIndex(numbers, 1); // => 2
 
-const users = [{ name: 'User1' }, { name: 'User2' }, { name: 'User3' }];
+const users = [
+  { name: 'User1' }, 
+  { name: 'User2' }, 
+  { name: 'User3' }
+];
 
 findIndex(users, (user) => user.name === 'User2'); // => 1
 
