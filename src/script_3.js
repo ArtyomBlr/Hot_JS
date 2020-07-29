@@ -18,21 +18,30 @@ callWithRememberedResult(doubleValue); // => 16
 
 /* Task 2 */
 
-// function callMaxTimes(numberOfTimes, func) {
-//   for (let i = 0; i < numberOfTimes; i += 1) {
-//     func();
-//   }
-// }
+function callMaxTimes(numberOfTimes, func) {
+  let number = 0;
 
-// function consoleLog() {
-//   console.log('abc');
-// }
+  function tryToCallFunction() {
+    number += 1;
 
-// const callConsoleLog = callMaxTimes(3, consoleLog);
-// callConsoleLog(); // => 'abc'
-// callConsoleLog(); // => 'abc'
-// callConsoleLog(); // => 'abc'
-// callConsoleLog(); // => nothing happens
+    if (numberOfTimes >= number) {
+      func();
+    }
+    return null;
+  }
+
+  return tryToCallFunction;
+}
+
+function consoleLog() {
+  console.log('abc');
+}
+
+const callConsoleLog = callMaxTimes(3, consoleLog);
+callConsoleLog(); // => 'abc'
+callConsoleLog(); // => 'abc'
+callConsoleLog(); // => 'abc'
+callConsoleLog(); // => nothing happens
 
 // /* Task 3 */
 
