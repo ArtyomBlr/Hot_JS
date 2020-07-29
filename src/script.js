@@ -6,9 +6,9 @@ function summ(...args) {
       summary += +item;
     }
     return summary;
-  });
+  }, 0);
 
-  return console.log(result);
+  return result;
 }
 
 summ(1, '2', '3', 5, 'abc', true);
@@ -27,7 +27,7 @@ function summAdvanced(...args) {
     }
     return summary;
   }, 0);
-  return console.log(result);
+  return result;
 }
 
 function getRandomNumber() {
@@ -61,10 +61,10 @@ isValueExists(null); // => false
 /* Task 4 */
 
 function callWithFunctionResult(funct1, funct2) {
-  if (typeof funct2 !== 'function' || typeof funct1 !== 'function') {
-    return console.log('please use functions here!');
+  if (typeof funct2 === 'function' || typeof funct1 === 'function') {
+    return Number(funct2()) ? funct1(funct2()) : null;
   }
-  return console.log(Number(funct2()) ? funct1(funct2()) : console.log('function value is not a number'));
+  return null;
 }
 
 function getFour() {
@@ -84,15 +84,16 @@ function consoleLog(value) {
 }
 
 function callWhileStringIsNotEmpty(string, func) {
-  if (typeof string !== 'string') {
-    return console.log('not a string');
+  if (typeof string === 'string') {
+    const strLength = string.length;
+    const newString = string.substring(0, strLength - 1);
+    func(string);
+
+    if (strLength > 1) {
+      callWhileStringIsNotEmpty(newString, func);
+    }
   }
-
-  const strLength = string.length;
-  const newString = string.substring(0, strLength - 1);
-  func(string);
-
-  return strLength < 1 ? string : callWhileStringIsNotEmpty(newString, func);
+  return string;
 }
 
 callWhileStringIsNotEmpty('qwerty', consoleLog);
