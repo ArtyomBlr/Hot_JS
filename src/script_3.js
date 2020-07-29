@@ -29,7 +29,6 @@ function callMaxTimes(numberOfTimes, func) {
     }
     return null;
   }
-
   return tryToCallFunction;
 }
 
@@ -43,14 +42,20 @@ callConsoleLog(); // => 'abc'
 callConsoleLog(); // => 'abc'
 callConsoleLog(); // => nothing happens
 
-// /* Task 3 */
+/* Task 3 */
 
 // function greet(greeting, name) {
 //   return console.log(`${greeting} ${name}`);
 // }
 
-// function partial() {
-//   return greet();
+// function partial(func) {
+//   const greeting = func();
+//   console.log(greeting);
+//   function toGreed(string) {
+//     return `${greeting} + ${string}`;
+//   }
+//   console.log(toGreed());
+//   return toGreed;
 // }
 
 // const sayHelloTo = partial(greet, 'Hello');
@@ -58,25 +63,37 @@ callConsoleLog(); // => nothing happens
 
 /* Task 4 */
 
-// function curry(fn) {
-//   // HINT: fn.length should be used to get number of fn arguments
-// }
+function curry(/* fn */) {
+  // HINT: fn.length should be used to get number of fn arguments
+  let currentSum = 0;
 
-// function summ1(a, b, c) {
-//   return a + b + c;
-// }
+  function f(b) {
+    currentSum += b;
+    return f;
+  }
 
-// const curriedSumm1 = curry(summ1);
-// curriedSumm1(1)(2)(3); // => 6
+  f.toString = function toPrimitive() {
+    return currentSum;
+  };
 
-// function summ2(a, b, c, d, e) {
-//   return a + b + c + d + e;
-// }
+  return f;
+}
 
-// const curriedSumm2 = curry(summ2);
-// curriedSumm2(1)(2)(3)(4)(5); // => 15
+function summ1(a, b, c) {
+  return a + b + c;
+}
 
-// /* Task 5 */
+const curriedSumm1 = curry(summ1);
+console.log(curriedSumm1(1)(2)(3)); // => 6
+
+function summ2(a, b, c, d, e) {
+  return a + b + c + d + e;
+}
+
+const curriedSumm2 = curry(summ2);
+console.log(curriedSumm2(1)(2)(3)(4)(5)); // => 15
+
+/* Task 5 */
 
 // function debounce(fn, timeOut) {
 //   // HINT: setTimeout and clearTimeout should be used.
