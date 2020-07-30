@@ -44,36 +44,29 @@ callConsoleLog(); // => nothing happens
 
 /* Task 3 */
 
-// function greet(greeting, name) {
-//   return console.log(`${greeting} ${name}`);
-// }
+function greet(greeting, name) {
+  return console.log(`${greeting} ${name}`);
+}
 
-// function partial(func) {
-//   const greeting = func();
-//   console.log(greeting);
-//   function toGreed(string) {
-//     return `${greeting} + ${string}`;
-//   }
-//   console.log(toGreed());
-//   return toGreed;
-// }
+function partial(func, ...args) {
+  return function (...nextArgs) {
+    return func.call(null, ...args, ...nextArgs);
+  };
+}
 
-// const sayHelloTo = partial(greet, 'Hello');
-// sayHelloTo('everyone'); // => 'Hello everyone'
+const sayHelloTo = partial(greet, 'Hello');
+sayHelloTo('everyone'); // => 'Hello everyone'
 
 /* Task 4 */
 
-function curry(/* fn */) {
+function curry(fn) {
   // HINT: fn.length should be used to get number of fn arguments
-  let currentSum = 0;
-
   function f(b) {
-    currentSum += b;
-    return f;
+    return curry(fn + b);
   }
 
   f.toString = function toPrimitive() {
-    return currentSum;
+    return fn;
   };
 
   return f;
@@ -95,29 +88,33 @@ console.log(curriedSumm2(1)(2)(3)(4)(5)); // => 15
 
 /* Task 5 */
 
-// function debounce(fn, timeOut) {
-//   // HINT: setTimeout and clearTimeout should be used.
+let timer = null;
+
+function debounce(fn, delay) {
+  if (timer) {
+    clearTimeout(timer);
+  }
+  timer = setTimeout(fn, delay);
+}
+
+function dateNow() {
+  console.log(Date.now());
+}
+
+// First case
+debounce(dateNow, 1000); // => would be called in 1 second
+
+// Second case
+debounce(dateNow, 100); // => canceled
+debounce(dateNow, 150); // => canceled
+debounce(dateNow, 170); // => would be called only last, previous would be canceled
+
+/* Task 6 */
+
+// function memoize(fn) {
+
 // }
 
-// function dateNow() {
-//   console.log(Date.now());
-// }
-
-// // First case
-// debounce(dateNow, 1000); // => would be called in 1 second
-
-// // ...
-
-// // Second case
-// debounce(dateNow, 100); // => canceled
-// debounce(dateNow, 150); // => canceled
-// debounce(dateNow, 170); // => would be called only last, previous would be canceled
-
-// /* Task 6 */
-
-// function memoize(fn) {}
-
-// // Expected result
 // function summ(a, b, c) {
 //   return a + b + c;
 // }
