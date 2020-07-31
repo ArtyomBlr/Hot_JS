@@ -7,7 +7,6 @@ function doubleValue(value) {
 function rememberResult(initialValue) {
   return () => {
     initialValue = doubleValue(initialValue);
-    console.log(initialValue);
   };
 }
 
@@ -50,7 +49,7 @@ function greet(greeting, name) {
 
 function partial(func, ...args) {
   return function (...nextArgs) {
-    return func.call(null, ...args, ...nextArgs);
+    return func(...args, ...nextArgs);
   };
 }
 
@@ -59,17 +58,28 @@ sayHelloTo('everyone'); // => 'Hello everyone'
 
 /* Task 4 */
 
+// function curry(fn) {
+//   function toTransform(n, args) {
+//     return function toTransformFinal(a) {
+//       return n <= 1 ? fn(...args, a) : toTransform(n - 1, [...args, a]);
+//     };
+//   }
+//   return toTransform(fn.length, []);
+// }
+
 function curry(fn) {
-  // HINT: fn.length should be used to get number of fn arguments
-  function f(b) {
-    return curry(fn + b);
+  const argsStore = [];
+  function collect(item) {
+    console.log('item', item);
+    argsStore.push(item);
+    return collect;
   }
-
-  f.toString = function toPrimitive() {
-    return fn;
+  collect.toString = function () {
+    console.log('argsStore', argsStore);
+    const result = fn.apply(null, argsStore);
+    return result;
   };
-
-  return f;
+  return collect;
 }
 
 function summ1(a, b, c) {
@@ -78,6 +88,13 @@ function summ1(a, b, c) {
 
 const curriedSumm1 = curry(summ1);
 console.log(curriedSumm1(1)(2)(3)); // => 6
+
+function summ3(a, b, c) {
+  return a * b * c;
+}
+
+const curriedSumm3 = curry(summ3);
+console.log(curriedSumm3(1)(34)(3)); // => 6
 
 function summ2(a, b, c, d, e) {
   return a + b + c + d + e;
@@ -88,7 +105,7 @@ console.log(curriedSumm2(1)(2)(3)(4)(5)); // => 15
 
 /* Task 5 */
 
-let timer = null;
+let timer;
 
 function debounce(fn, delay) {
   if (timer) {
@@ -111,19 +128,25 @@ debounce(dateNow, 170); // => would be called only last, previous would be cance
 
 /* Task 6 */
 
-// function memoize(fn) {
+function memoize(fn) {
+  return function putInCache(...args) {
+    const cache = new Map();
+    if (cache.has(args)) {
+      return null;
+    }
+    const result = fn(args);
+    cache.set(args, result);
+    return result;
+  };
+}
 
-// }
+function summ(a, b, c) {
+  return a + b + c;
+}
 
-// function summ(a, b, c) {
-//   return a + b + c;
-// }
+const memoizedSumm = memoize(summ);
 
-// const memoizedSumm = memoize(summ);
-
-// memoizedSumm(1, 2, 3); // => function summ was called, result 6
-// memoizedSumm(1, 2, 3); //
-//  => function summ was NOT called, result 6 was remembered for arguments 1, 2, 3 and returned
-// // memoizedSumm(4, 2, 3); // => function summ was called, result 9
-// // memoizedSumm(4, 2, 3); //
-// => function summ was NOT called, result 9 was remembered for arguments 4, 2, 3 and returned
+console.log(memoizedSumm(1, 2, 3));
+console.log(memoizedSumm(1, 2, 3));
+memoizedSumm(4, 2, 3);
+memoizedSumm(4, 2, 3);
