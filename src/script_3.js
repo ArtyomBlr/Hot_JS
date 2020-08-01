@@ -56,7 +56,7 @@ function partial(func, ...args) {
 
   if (typeof func === 'function') {
     return function (...nextArgs) {
-      return (checkArgs) ? func(...args, ...nextArgs) : null;
+      return checkArgs ? func(...args, ...nextArgs) : null;
     };
   }
   return null;
