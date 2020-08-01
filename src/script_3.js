@@ -58,29 +58,29 @@ sayHelloTo('everyone'); // => 'Hello everyone'
 
 /* Task 4 */
 
-// function curry(fn) {
-//   function toTransform(n, args) {
-//     return function toTransformFinal(a) {
-//       return n <= 1 ? fn(...args, a) : toTransform(n - 1, [...args, a]);
-//     };
-//   }
-//   return toTransform(fn.length, []);
-// }
-
 function curry(fn) {
-  const argsStore = [];
-  function collect(item) {
-    console.log('item', item);
-    argsStore.push(item);
-    return collect;
+  function toTransform(n, args) {
+    return function toTransformFinal(a) {
+      return n <= 1 ? fn(...args, a) : toTransform(n - 1, [...args, a]);
+    };
   }
-  collect.toString = function () {
-    console.log('argsStore', argsStore);
-    const result = fn.apply(null, argsStore);
-    return result;
-  };
-  return collect;
+  return toTransform(fn.length, []);
 }
+
+// function curry(fn) {
+//   const argsStore = [];
+//   function collect(item) {
+//     console.log('item', item);
+//     argsStore.push(item);
+//     return collect;
+//   }
+//   collect.toString = function () {
+//     console.log('argsStore', argsStore);
+//     const result = fn.apply(null, argsStore);
+//     return result;
+//   };
+//   return collect;
+// }
 
 function summ1(a, b, c) {
   return a + b + c;
