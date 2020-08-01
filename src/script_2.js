@@ -15,11 +15,11 @@ function chunk(array, number) {
     }, []);
     return result;
   }
-  return null;
+  return [];
 }
 
-chunk(['a', 'b', 'c', 'd'], 2); // => [['a', 'b'], ['c', 'd']]
-chunk(['a', 'b', 'c', 'd'], 3); // => [['a', 'b', 'c'], ['d']]
+chunk(['a', 'b', 'c', 'd'], 2);
+chunk(['a', 'b', 'c', 'd'], 3);
 
 /* Task 2 */
 
@@ -35,7 +35,7 @@ function difference(array1, array2) {
   return newArr;
 }
 
-difference([2, 1], [2, 3, 4]); // => [1, 3, 4]
+difference([2, 1], [2, 3, 4]);
 
 /* Task 3 */
 
@@ -43,20 +43,20 @@ function findIndex(obj, element) {
   if (Array.isArray(obj) && obj.length > 0) {
     return typeof element === 'function' ? obj.findIndex(element) : obj.indexOf(element);
   }
-  return null;
+  return [];
 }
 
 const numbers = [3, 5, 1, 6, 7];
-findIndex(numbers, 1); // => 2
+findIndex(numbers, 1);
 
 const users = [{ name: 'User1' }, { name: 'User2' }, { name: 'User3' }];
 
-findIndex(users, (user) => user.name === 'User2'); // => 1
+findIndex(users, (user) => user.name === 'User2');
 
 /* Task 4 */
 
 function flattenDeep(array) {
-  return Array.isArray(array) ? array.flat(Infinity) : null;
+  return Array.isArray(array) ? array.flat(Infinity) : [];
 }
 
 flattenDeep([1, [2, [3, [4]], 5]]);
@@ -64,28 +64,28 @@ flattenDeep([1, [2, [3, [4]], 5]]);
 /* Task 5 */
 
 function fromPairs(array) {
-  return Array.isArray(array) ? Object.fromEntries(array) : null;
+  return Array.isArray(array) ? Object.fromEntries(array) : {};
 }
 
 fromPairs([
   ['a', 1],
   ['b', 2],
-]); // => { 'a': 1, 'b': 2 }
+]);
 
 /* Task 6 */
 
 function uniq(array) {
   return Array.isArray(array)
     ? array.filter((element, index) => array.indexOf(element) === index)
-    : null;
+    : [];
 }
 
-uniq([2, 1, 2, 5, 6, 5, 7]); // => [2, 1, 5, 6, 7]
+uniq([2, 1, 2, 5, 6, 5, 7]);
 
 /* Task 7 */
 
 function every(object, item) {
-  return Array.isArray(object) ? object.every(item) : null;
+  return Array.isArray(object) ? object.every(item) : [];
 }
 
 const users1 = [
@@ -94,7 +94,7 @@ const users1 = [
   { name: 'User3', age: 23 },
 ];
 
-every(users1, (user) => user.age === 22); // => false
+every(users1, (user) => user.age === 22);
 
 const users2 = [
   { name: 'User1', age: 22 },
@@ -102,7 +102,7 @@ const users2 = [
   { name: 'User3', age: 22 },
 ];
 
-every(users2, (user) => user.age === 22); // => true
+every(users2, (user) => user.age === 22);
 
 const users3 = [
   { name: 'User1', age: 22 },
@@ -110,12 +110,12 @@ const users3 = [
   { name: 'User3', age: 20 },
 ];
 
-every(users3, (user) => user.age < 24); // => true
+every(users3, (user) => user.age < 24);
 
 /* Task 8 */
 
 function find(object, item) {
-  return Array.isArray(object) ? object.filter(item) : null;
+  return Array.isArray(object) ? object.filter(item) : [];
 }
 
 const users4 = [
@@ -125,7 +125,6 @@ const users4 = [
 ];
 
 find(users4, (user) => user.age < 23);
-// => [{ name: 'User1', age: 22 }, { name: 'User3', age: 20 }]
 
 /* Task 9 */
 
@@ -138,17 +137,17 @@ function groupBy(object, key) {
       return acc;
     }, {});
   }
-  return null;
+  return {};
 }
 
-groupBy(['one', 'two', 'three'], (element) => element.length); // => { '3': ['one', 'two'], '5': ['three'] }
+groupBy(['one', 'two', 'three'], (element) => element.length);
 
 /* Task 10 */
 
 function isEqual(obj1, obj2) {
   return typeof obj1 === 'object' && typeof obj2 === 'object'
     ? JSON.stringify(obj1) === JSON.stringify(obj2)
-    : null;
+    : false;
 }
 
 const object1 = {
@@ -170,7 +169,7 @@ const object2 = {
   },
 };
 
-isEqual(object1, object2); // => true
+isEqual(object1, object2);
 
 const object11 = {
   a: 1,
@@ -191,7 +190,7 @@ const object22 = {
   },
 };
 
-isEqual(object11, object22); // => false
+isEqual(object11, object22);
 
 const object111 = {
   a: 1,
@@ -212,4 +211,4 @@ const object222 = {
   },
 };
 
-isEqual(object111, object222); // => false
+isEqual(object111, object222);
