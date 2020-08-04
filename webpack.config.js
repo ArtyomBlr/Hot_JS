@@ -8,6 +8,7 @@ module.exports = {
     task1: ['@babel/polyfill/noConflict', './script.js'],
     task2: ['@babel/polyfill/noConflict', './script_2.js'],
     task3: ['@babel/polyfill/noConflict', './script_3.js'],
+    task4: ['@babel/polyfill/noConflict', './script_3.js'],
   },
   output: {
     filename: '[name].[contenthash].js',
