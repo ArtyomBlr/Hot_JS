@@ -80,9 +80,6 @@ function curry(fn) {
         argsStore.push(item);
         return collect;
       }
-      // I have no idea how to skip calling function, when there is no argument,
-      // i tried to use .filter but it doesnt work.
-      // argsStore = argsStore.filter((elem) => elem !== null);
       return [];
     };
     func.toString = function () {
@@ -150,7 +147,7 @@ function memoize(fn) {
       const checkArgs = args.every((elem) => typeof elem === 'number');
       if (checkArgs) {
         if (args in cache) {
-          return null;
+          return cache[args];
         }
         const result = fn(...args);
         cache[args] = result;
