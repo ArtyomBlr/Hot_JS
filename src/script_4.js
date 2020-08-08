@@ -37,8 +37,8 @@ function Collection(constructor) {
 
   this.readAll = () => console.log(list);
 
-  this.add = (id, name) => {
-    const addCollection = new constructor(id, name);
+  this.add = (...args) => {
+    const addCollection = new constructor(...args);
     list.push(addCollection);
   };
 
