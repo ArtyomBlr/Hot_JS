@@ -52,14 +52,11 @@ function greet(greeting, name) {
 }
 
 function partial(func, ...args) {
-  const checkArgs = args.every((elem) => typeof elem === 'string');
+  const hasArgs = args.some((elem) => typeof elem === 'string');
 
-  if (typeof func === 'function') {
-    return function (...nextArgs) {
-      return checkArgs ? func(...args, ...nextArgs) : null;
-    };
-  }
-  return null;
+  return function (...nextArgs) {
+    return hasArgs ? func(...args, ...nextArgs) : null;
+  };
 }
 
 const sayHelloTo = partial(greet, 'Hello');
@@ -68,23 +65,14 @@ sayHelloTo('everyone'); // => 'Hello everyone'
 /* Task 4 */
 
 function curry(fn) {
-  let func;
   const argsStore = [];
+
   if (typeof fn === 'function') {
-    func = function collect(item) {
-      if (typeof item === 'undefined') {
-        argsStore.push(0);
-        return collect;
-      }
-      if (typeof item === 'number') {
-        argsStore.push(item);
-        return collect;
-      }
-      // I have no idea how to skip calling function, when there is no argument,
-      // i tried to use .filter but it doesnt work.
-      // argsStore = argsStore.filter((elem) => elem !== null);
-      return [];
+    const func = function collect(item) {
+      argsStore.push(item);
+      return collect;
     };
+
     func.toString = function () {
       const result = fn(...argsStore);
       return result;
@@ -99,14 +87,14 @@ function summ1(a, b, c) {
 }
 
 const curriedSumm1 = curry(summ1);
-console.log(curriedSumm1(1)()(3)); // => 6
+console.log(curriedSumm1(1)(2)(3)); // => 6
 
 function summ3(a, b, c) {
   return a * b * c;
 }
 
 const curriedSumm3 = curry(summ3);
-console.log(curriedSumm3(1)(34)()); // => 6
+console.log(curriedSumm3(1)(34)(3)); // => 6
 
 function summ2(a, b, c, d, e) {
   return a + b + c + d + e;
@@ -147,18 +135,14 @@ function memoize(fn) {
   const cache = {};
   if (typeof fn === 'function') {
     return function putInCache(...args) {
-      const checkArgs = args.every((elem) => typeof elem === 'number');
-      if (checkArgs) {
-        if (args in cache) {
-          return null;
-        }
-        const result = fn(...args);
-        cache[args] = result;
-        return result;
+      if (args in cache) {
+        return cache[args];
       }
+      const result = fn(...args);
+      cache[args] = result;
+      return result;
     };
   }
-  return null;
 }
 
 function summ(a, b, c) {
@@ -167,7 +151,7 @@ function summ(a, b, c) {
 
 const memoizedSumm = memoize(summ);
 
-console.log(memoizedSumm(1, 2, 3));
-console.log(memoizedSumm(1, 2, 3));
+console.log(memoizedSumm(1, 2.2, 3.3));
+console.log(memoizedSumm(1, 2.2, 3.3));
 console.log(memoizedSumm(4, 2, 3));
 console.log(memoizedSumm(4, 2, 3));
