@@ -31,11 +31,10 @@ function difference(array1, array2) {
       .filter((element) => array2.indexOf(element) === -1)
       .concat(array2.filter((element) => array1.indexOf(element) === -1));
   }
-
   return newArr;
 }
 
-difference([2, 1], [2, 3, 4]);
+console.log(difference([2, 1, 2], [2, 3, 4]));
 
 /* Task 3 */
 
