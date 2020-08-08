@@ -1,14 +1,12 @@
 /* Task 1 */
 
 function summ(...args) {
-  const result = args.reduce((summary, item) => {
+  return args.reduce((summary, item) => {
     if (Number(item) && typeof item !== 'boolean') {
       summary += +item;
     }
     return summary;
   }, 0);
-
-  return result;
 }
 
 summ(1, '2', '3', 5, 'abc', true);
@@ -16,18 +14,16 @@ summ(1, '2', '3', 5, 'abc', true);
 /* Task 2 */
 
 function summAdvanced(...args) {
-  const result = args.reduce((summary, item) => {
-    if (typeof item !== 'boolean') {
-      const value = +item;
-      if (typeof item === 'function') {
-        summary += +item();
-      } else if (value) {
-        summary += value;
-      }
+  return args.reduce((summary, item) => {
+    let value = +item;
+    if (typeof item === 'function') {
+      value = +item();
+    }
+    if (value && typeof item !== 'boolean') {
+      summary += value;
     }
     return summary;
   }, 0);
-  return result;
 }
 
 function getRandomNumber() {
@@ -42,7 +38,7 @@ function getTenString() {
   return '10';
 }
 
-summAdvanced('abc', 1, '2', getTen, getTenString, getRandomNumber, true, true);
+console.log(summAdvanced('abc', 1, '2', getTen, getTenString, getRandomNumber, true, true));
 
 /* Task 3 */
 
