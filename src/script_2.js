@@ -24,14 +24,13 @@ chunk(['a', 'b', 'c', 'd'], 3);
 /* Task 2 */
 
 function difference(array1, array2) {
-  let newArr = [];
-
   if (Array.isArray(array1) && Array.isArray(array2)) {
-    newArr = array1
-      .filter((element) => array2.indexOf(element) === -1)
-      .concat(array2.filter((element) => array1.indexOf(element) === -1));
+    return [
+      ...array1.filter((elem) => !array2.includes(elem)),
+      ...array2.filter((elem) => !array1.includes(elem)),
+    ];
   }
-  return newArr;
+  return [];
 }
 
 console.log(difference([2, 1, 2], [2, 3, 4]));
